@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+## Usage bench:         ./run
+## Usage just compare:  ./run --cmp
+set -eu
+
+benches=(std_string std_arc_str smol_str compact_str smartstring utf8_bytes)
+
+if [ "${1:-}" != "--cmp" ]; then
+    for bench in "${benches[@]}"
+    do
+        echo "==> $bench"
+        cargo bench --bench "$bench" -- --quick --quiet --save-baseline "$bench"
+    done
+fi
+
+echo "==> critcmp"
+critcmp -f 'len=12' "${benches[@]}"
+
+echo
+critcmp -f 'len=50' "${benches[@]}"
+
+echo
+critcmp -f 'len=1000' "${benches[@]}"
