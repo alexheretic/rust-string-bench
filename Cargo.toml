@@ -11,7 +11,7 @@ rand = "0.9.2"
 smartstring = "1.0.1"
 smol_str = "0.3.2"
 # TODO: Use the `Utf8Bytes` type from here since afaik there isn't a common crate for it :(
-tungstenite = "0.27"
+tungstenite = "0.28"
 
 [[bench]]
 name = "std_string"
